@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Admin's Dashboard</title>
+        <link rel="stylesheet" href="/static/dashboard.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    </head>
+    <body>
+        <!--Sidebar-->
+        <div class="sidebar">
+            <ul class="nav-links">
+                <li><a href="/admin_dashboard"><i class="bx bx-grid-alt"></i> Dashboard</a></li>
+                <li><a href="/admin_trek"><i class="bx bx-map"></i> Treks</a></li>
+                <li><a href="/admin_staff_active"><i class="bx bx-user-pin"></i> Staff</a></li>
+                <li><a href="/admin_users_active"><i class="bx bx-user"></i> Users</a></li>
+                <li><a href="/admin_bookings"><i class="bx bx-book-content"></i> Booking</a></li>
+                <li><a href="/admin_trek_history"><i class="bx bx-user-pin"></i> Trek History</a></li>
+                <li><a href="/admin_booking_history"><i class="bx bx-book-content"></i> Booking History</a></li>
+                <li><a href="/logout" class="logout"><i class="bx bx-log-out"></i> Logout</a></li>
+            </ul>
+        </div>
+        <!--Sidebar-->
+        <!--Navbar-->
+        <div class="navbar" style = "position : fixed;">
+            <nav class="navbar bg-body-tertiary" >
+                <div class="container-fluid">
+                    <a class="navbar-brand">HikeNest</a>
+                </div>
+            </nav>
+        </div>
+        <!--Navbar-->
+        <div class = "canvas" >
+            <h2> Edit Treks</h2>
+            <div id = "form-body" >
+                <form class="row g-3" action="/admin_edit_trek/{{trek.id}}" method="POST">
+                    <div class="mb-3">
+                        <label for="disabledTextInput" class="form-label">Trek Id</label>
+                        <input class="form-control" type="text" placeholder="{{trek.id}}" aria-label="Disabled input example" disabled>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="trek_name" class="form-label">Trek Name</label>
+                        <input type="text" class="form-control" id="trek_name"  name="trek_name" value = "{{trek.trek_name}}" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="location" class="form-label">Location</label>
+                        <input type="text" class="form-control" id="location" name="location" value = "{{trek.location}}"  required>
+                    </div>
+                    <div class="col-md-6" >
+                        <label for="difficulty" class="form-label">Difficulty</label>
+                        <select id="difficulty" name="difficulty" class="form-select" value = "{{trek.difficulty}}"  required>
+                        <option selected>{{trek.difficulty}}</option>
+                        <option value="Easy" name="Easy">Easy</option>
+                        <option value="Moderate" name="Moderate">Moderate</option>
+                        <option value="Hard" name="Hard">Hard</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="duration" class="form-label">Duration(days)</label>
+                        <input type="text" class="form-control" id="duration" name="duration" value = "{{trek.duration}}"  required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="available_slots" class="form-label">Available Slots</label>
+                        <input type="text" class="form-control" id="available_slots" name="available_slots" value = "{{trek.available_slots}}"  required>
+                    </div>
+                    <div class="col-md-6" style = "width:100%">
+                        <label for="assigned_staff_id" class="form-label">Assigned Staff</label>
+                        <select id="assigned_staff_id" name="assigned_staff_id" class="form-select" value = "{{trek.assigned_staff_id}}"  required>
+                        <option selected>{{trek.staff.id}}</option>
+                        {% for staff in staffs %}
+                        <option value="{{staff.id}}" name="{{staff.id}}">{{staff.name}}</option>
+                        {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="start_date" class="form-label">Start Date</label>
+                        <input type="date" class="form-control" id="start_date" name="start_date" value = "{{trek.start_date}}"  required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="end_date" class="form-label">End Date</label>
+                        <input type="date" class="form-control" id="end_date" name="end_date" value = "{{trek.end_date}}"  required>
+                    </div>
+
+                    <div class="col-md-6" style = "width:100%">
+                        <label for="status" class="form-label">Status</label>
+                        <select id="status" name="status" class="form-select" value = "{{trek.status}}"  required>
+                        <option selected>{{trek.status}}</option>
+                        <option value="Open" name="Open">Open</option>
+                        <option value="Started" name="Started">Started</option>
+                        <option value="Completed" name="Completed">Completed</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="description">Description</label>
+                        <textarea class="form-control"  id="description" name="description" style="height: 100px"  required>{{trek.description}}</textarea>
+                    </div>
+                    <div class="text-end" style ="display: flex; gap:20px; padding:50px;">
+                        <input type="submit" class="btn btn-success" value = "Save">
+                        <a href="/admin_trek" class="btn btn-secondary">Go Back</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

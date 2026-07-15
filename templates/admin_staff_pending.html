@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Admin's Dashboard</title>
+        <link rel="stylesheet" href="/static/dashboard.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    </head>
+    <body>
+        <!--Sidebar-->
+        <div class="sidebar">
+            <ul class="nav-links">
+                <li><a href="/admin_dashboard"><i class="bx bx-grid-alt"></i> Dashboard</a></li>
+                <li><a href="/admin_trek"><i class="bx bx-map"></i> Treks</a></li>
+                <li><a href="/admin_staff_active"><i class="bx bx-user-pin"></i> Staff</a></li>
+                <li><a href="/admin_users_active"><i class="bx bx-user"></i> Users</a></li>
+                <li><a href="/admin_bookings"><i class="bx bx-book-content"></i> Booking</a></li>
+                <li><a href="/admin_trek_history"><i class="bx bx-user-pin"></i> Trek History</a></li>
+                <li><a href="/admin_booking_history"><i class="bx bx-book-content"></i> Booking History</a></li>
+                <li><a href="/logout" class="logout"><i class="bx bx-log-out"></i> Logout</a></li>
+            </ul>
+        </div>
+        <!--Sidebar-->
+        <!--Navbar-->
+        <div class="navbar" style = "position : fixed;">
+            <nav class="navbar bg-body-tertiary" >
+                <div class="container-fluid">
+                    <a class="navbar-brand">HikeNest</a>
+                    <form class="d-flex" role="search" action = "/search_admin_staff">
+                    <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search"/>
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                </div>
+            </nav>
+        </div>
+        <!--Navbar-->
+        <div class = "canvas" >
+            <h2>Staff Records</h2>
+            <div class= "navbar" >
+                <ul class="nav nav-underline">
+                    <li class="nav-item">
+                        <a class="nav-link "  href="/admin_staff_active" style = " color: #4f46e5;">Active Staff</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin_staff_assigned" style = " color: #4f46e5;">Assigned Staff</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin_staff_available" style = " color: #4f46e5;">Available Staff</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/admin_staff_pending" style = " color: #4f46e5;">Pending</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin_staff_blacklisted"style = " color: #4f46e5;">Blacklisted</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!--Table-->
+            <h2>Pending Staff List</h2>
+            <div class = "table">
+                <table class="table table-hover" >
+                    <thead>
+                        <tr>
+                            <th scope="row">Staff Id</th>
+                            <th scope="row">Name</th>
+                            <th scope="row">Email</th>
+                            <th scope="row">Contact</th>
+                            <th scope="row">Status</th>
+                            <th scope="row">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if pending_staff %}
+                            {% for staff in pending_staff %}
+                            <tr>
+                                <td>{{staff.id}}</td>
+                                <td>{{staff.name}}</td>
+                                <td>{{staff.email}}</td>
+                                <td>{{staff.phone}}</td>
+                                <td>{{staff.status}}</td>
+                                <td><a href="/admin_staff_approve/{{staff.id}}" class="btn btn-outline-success" >Approve</a>
+                                    <a href="/admin_staff_reject/{{staff.id}}" class="btn btn-outline-danger" >Block</a></td>
+                            </tr>
+                            {% endfor %}
+                        {% else %}
+                        <tr>
+                            <td colspan="9" class="text-center">
+                                There is no data.
+                            </td>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+            <!--Table-->
+        </div>
+    </body>
+</html>

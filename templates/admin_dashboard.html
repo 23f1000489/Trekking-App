@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Admin's Dashboard</title>
+        <link rel="stylesheet" href="/static/dashboard.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    </head>
+    <body>
+        <!--Sidebar-->
+        <div class="sidebar">
+            <ul class="nav-links">
+                <li><a href="/admin_dashboard"><i class="bx bx-grid-alt"></i> Dashboard</a></li>
+                <li><a href="/admin_trek"><i class="bx bx-map"></i> Treks</a></li>
+                <li><a href="/admin_staff_active"><i class="bx bx-user-pin"></i> Staff</a></li>
+                <li><a href="/admin_users_active"><i class="bx bx-user"></i> Users</a></li>
+                <li><a href="/admin_bookings"><i class="bx bx-book-content"></i> Booking</a></li>
+                <li><a href="/admin_trek_history"><i class="bx bx-user-pin"></i> Trek History</a></li>
+                <li><a href="/admin_booking_history"><i class="bx bx-book-content"></i> Booking History</a></li>
+                <li><a href="/logout" class="logout"><i class="bx bx-log-out"></i> Logout</a></li>
+            </ul>
+        </div>
+        <!--Sidebar-->
+        <!--Navbar-->
+        <div class="navbar" style = "position : fixed;">
+            <nav class="navbar bg-body-tertiary" >
+                <div class="container-fluid">
+                    <a class="navbar-brand">HikeNest</a>
+                </div>
+            </nav>
+        </div>
+        <!--Navbar-->
+        <!--Main Content-->
+        <!--Card-->
+        <div class = "canvas" >
+            <h2 >Dashboard</h2>
+            <div class = "content" >
+                <a href="/admin_trek">
+                <div class="card" >
+                    <div class="card-body">
+                        <p class="card-text" >Total Trekks</p>
+                        <i class="bx bx-map"><p>{{total_treks}}</p></i>
+                    </div>
+                </div>
+                </a>
+                <a href="/admin_users_active">
+                <div class="card" >
+                    <div class="card-body">
+                        <p class="card-text">Total Users</p>
+                        <i class="bx bx-user"><p>{{total_users}}</p></i>
+                    </div>
+                </div>
+                </a>
+                <a href="/admin_staff_active">
+                <div class="card" >
+                    <div class="card-body">
+                        <p class="card-text">Total Staff</p>
+                        <i class="bx bx-user-pin"><p>{{total_staffs}}</p></i>
+                    </div>
+                </div>
+                </a>
+                <a href="/admin_bookings">
+                <div class="card" >
+                    <div class="card-body">
+                        <p class="card-text">Total Bookings</p>
+                        <i class="bx bx-book-content"><p>{{total_bookings}}</p></i>
+                    </div>
+                </div>
+                </a>
+                <!--Card-->
+            </div><br>
+            <!--Main Content-->
+            <!--Table-->
+            <h2>Recent Bookings</h2>
+            <div class = "table">
+                <table class="table table-hover" >
+                    <thead>
+                        <tr>
+                            <th scope="row">Booking Id</th>
+                            <th scope="row">Trekker</th>
+                            <th scope="row">Trek</th>
+                            <th scope="row">Booking Date</th>
+                            <th scope="row">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if bookings %}
+                            {% for booking in bookings %}
+                            <tr>
+                                <td>{{booking.id}}</td>
+                                <td>{{booking.user.name}}</td>
+                                <td>{{booking.trek.trek_name}}</td>
+                                <td>{{booking.booking_date}}</td>
+                                <td>{{booking.status}}</td>
+                            </tr>
+                            {% endfor %}
+                        {% else %}
+                        <tr>
+                            <td colspan="9" class="text-center">
+                                There is no data.
+                            </td>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+            <!--Table-->
+        </div>
+    </body>
+</html>

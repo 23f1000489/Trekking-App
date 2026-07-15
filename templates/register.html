@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Register Form</title>
+        <link rel="stylesheet" href="/static/login.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class ="main">
+            <div id ="canvas">
+                <div id = "form-body">
+                    <h1>Register Form</h1><br>
+                    <form action="/register" method="POST">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="name"  name="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Phone</label>
+                            <input type="tel" class="form-control" id="phone" name="phone" required>
+                        </div>
+                        <div class="col-md-4" style = "width:100%">
+                            <label for="role" class="form-label">You are a</label>
+                            <select id="role" name="role" class="form-control" required>
+                            <option selected></option>
+                            <option value="trekker" name="trekker">Trekker</option>
+                            <option value="trek_staff" name="trek_staff">Trek_Staff</option>
+                            </select><br>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+                        <div class="text-center">
+                            <input type="submit" class="btn btn-success" value = "Register"><br><br>
+                            <a href ="/login">Already have an account? Login</a>
+                        </div>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

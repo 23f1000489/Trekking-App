@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Trekker's Dashboard</title>
+        <link rel="stylesheet" href="/static/dashboard.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    </head>
+    <body>
+        <!--Sidebar-->
+        <div class="sidebar">
+            <ul class="nav-links">
+                <li><a href="/user_dashboard/{{this_user.id}}"><i class="bx bx-grid-alt"></i> Dashboard</a></li>
+                <li><a href="/user_trek/{{this_user.id}}"><i class="bx bx-map"></i>Browse Treks</a></li>
+                <li><a href="/user_bookings/{{this_user.id}}"><i class="bx bx-user-pin"></i>My Bookings</a></li>
+                <li><a href="/user_history/{{this_user.id}}"><i class="bx bx-user-pin"></i>History</a></li>
+                <li><a href="/user_profile/{{this_user.id}}"><i class="bx bx-user"></i>Profile</a></li>
+                <li><a href="/logout" class="logout"><i class="bx bx-log-out"></i> Logout</a></li>
+            </ul>
+        </div>
+        <!--Sidebar-->
+        <!--Navbar-->
+        <div class="navbar" style = "position : fixed;">
+            <nav class="navbar bg-body-tertiary" >
+                <div class="container-fluid">
+                    <a class="navbar-brand">HikeNest</a>
+                </div>
+            </nav>
+        </div>
+        <!--Navbar-->
+        <div class = "canvas" >
+            <h1>{{trek.trek_name}}</h1><br><br>
+            <h4>Location : {{trek.location}}</h4><br>
+            <h4>Difficulty : {{trek.difficulty}}</h4><br>
+            <h4>Duration : {{trek.duration}}</h4><br>
+            <h4>Start Date : {{trek.start_date}}</h4><br>
+            <h4>End Date : {{trek.end_date}}</h4><br>
+            <h4>Available Slots : {{trek.available_slots}}</h4><br>
+            <h4>Description : {{trek.description}}</h4><br>
+            <a href = "/user_trek_booking/{{this_user.id}}/{{trek.id}}" class="btn btn-outline-warning">Book Now</a>
+        </div>
+    </body>
+</html>

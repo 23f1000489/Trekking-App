@@ -1,0 +1,18 @@
+body{
+    background-image: url("/static/login.png");
+    background-size: cover;
+}
+
+#main, #canvas{
+    padding: 10px;
+    margin-top: 60px;
+    margin-left: 300px;
+    margin-right: 300px;
+}
+h1 {
+    text-align: center;
+}
+#form-body{
+    border-radius: 20px;
+    text-align: left;
+}

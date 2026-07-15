@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Staff's Dashboard</title>
+        <link rel="stylesheet" href="/static/dashboard.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    </head>
+    <body>
+        <!--Sidebar-->
+        <div class="sidebar">
+            <ul class="nav-links">
+                <li><a href="/staff_dashboard/{{this_staff.id}}"><i class="bx bx-grid-alt"></i> Dashboard</a></li>
+                <li><a href="/staff_trek/{{this_staff.id}}"><i class="bx bx-map"></i>My Treks</a></li>
+                <li><a href="/staff_participants/{{this_staff.id}}"><i class="bx bx-user-pin"></i>Participants</a></li>
+                <li><a href="/staff_profile/{{this_staff.id}}"><i class="bx bx-user"></i>Profile</a></li>
+                <li><a href="/logout" class="logout"><i class="bx bx-log-out"></i> Logout</a></li>
+            </ul>
+        </div>
+        <!--Sidebar-->
+        <!--Navbar-->
+        <div class="navbar" style = "position : fixed; ">
+            <nav class="navbar bg-body-tertiary" >
+                <div class="container-fluid">
+                    <a class="navbar-brand">HikeNest</a>
+                </div>
+            </nav>
+        </div>
+        <!--Navbar-->
+        <div class = "canvas" >
+            <!--Table-->
+            <h2>Participants</h2>
+            <div class = "table">
+                <table class="table table-hover" >
+                    <thead>
+                        <tr>
+                            <th scope="row">Trek Name</th>
+                            <th scope="row">Name</th>
+                            <th scope="row">Email</th>
+                            <th scope="row">Contact</th>
+                            <th scope="row">Booking Date</th>
+                            <th scope="row">Status</th>
+                            <th scope="row">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if bookings %}
+                            {% for b in bookings %}
+                            <tr>
+                                <td>{{b.trek.trek_name}}</td>
+                                <td>{{b.user.name}}</td>
+                                <td>{{b.user.email}}</td>
+                                <td>{{b.user.phone}}</td>
+                                <td>{{b.booking_date}}</td>
+                                <td>{{b.status}}</td>
+                                <td><a href = "/staff_remove_participant/{{this_staff.id}}/{{b.trek.id}}/{{b.user.id}}" class="btn btn-outline-danger">Remove</a></td>
+                            </tr>
+                            {% endfor %}
+                        {% else %}
+                        <tr>
+                            <td colspan="9" class="text-center">
+                                There is no data.
+                            </td>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+            <!--Table-->
+        </div>
+    </body>
+</html>

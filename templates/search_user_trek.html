@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Staff's Dashboard</title>
+        <link rel="stylesheet" href="/static/dashboard.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    </head>
+    <body>
+        <!--Sidebar-->
+        <div class="sidebar">
+            <ul class="nav-links">
+                <li><a href="/user_dashboard/{{this_user.id}}"><i class="bx bx-grid-alt"></i> Dashboard</a></li>
+                <li><a href="/user_trek/{{this_user.id}}"><i class="bx bx-map"></i>Browse Treks</a></li>
+                <li><a href="/user_bookings/{{this_user.id}}"><i class="bx bx-user-pin"></i>My Bookings</a></li>
+                <li><a href="/user_history/{{this_user.id}}"><i class="bx bx-user-pin"></i>History</a></li>
+                <li><a href="/user_profile/{{this_user.id}}"><i class="bx bx-user"></i>Profile</a></li>
+                <li><a href="/logout" class="logout"><i class="bx bx-log-out"></i> Logout</a></li>
+            </ul>
+        </div>
+        <!--Sidebar-->
+        <!--Navbar-->
+        <div class="navbar" style = "position : fixed;">
+            <nav class="navbar bg-body-tertiary" >
+                <div class="container-fluid">
+                    <a class="navbar-brand">HikeNest</a>
+                    <form class="d-flex" role="search" action = "/search_user_trek/{{this_user.id}}">
+                    <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search"/>
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                </div>
+            </nav>
+        </div>
+        <!--Navbar-->
+        <div class = "canvas" >
+            <!--Table-->
+            <h2>Welcome {{this_user.name}}</h2>
+            <h2>Available Treks</h2>
+            <form class="row g-3" action="/search_user_filter/{{this_user.id}}" method="POST">
+                <div class="col-md-5" >
+                    <label for="difficulty" class="form-label">Difficulty</label>
+                    <select id="difficulty" name="difficulty" class="form-select">
+                    <option selected></option>
+                    <option value="All" name="All">All</option>
+                    <option value="Easy" name="Easy">Easy</option>
+                    <option value="Moderate" name="Moderate">Moderate</option>
+                    <option value="Hard" name="Hard">Hard</option>
+                    </select>
+                </div>
+                <div class="col-md-5" >
+                    <label for="location" class="form-label">Location</label>
+                    <select id="location" name="location" class="form-select">
+                    <option selected></option>
+                    <option value="All" name="All">All</option>
+                    {% for treks in all_treks %}
+                    <option value="{{treks.location}}" name="{{treks.location}}">{{treks.location}}</option>
+                    {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-2 d-flex align-items-end">
+                    <button type="submit" class="btn btn-outline-info w-100">
+                        Filter
+                    </button>
+                </div>
+            </form><br><br>
+
+            <div class = "table">
+                <table class="table table-hover" >
+                    <thead>
+                        <tr>
+                            <th scope="row">Trek Id</th>
+                            <th scope="row">Trek Name</th>
+                            <th scope="row">Location</th>
+                            <th scope="row">Difficulty</th>
+                            <th scope="row">Duration</th>
+                            <th scope="row">Available Slots</th>
+                            <th scope="row">Start Date</th>
+                            <th scope="row">End Date</th>
+                            <th scope="row">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if all_treks %}
+                            {% for treks in all_treks %}
+                            <tr>
+                                <td>{{treks.id}}</td>
+                                <td>{{treks.trek_name}}</td>
+                                <td>{{treks.location}}</td>
+                                <td>{{treks.difficulty}}</td>
+                                <td>{{treks.duration}}</td>
+                                <td>{{treks.available_slots}}</td>
+                                <td>{{treks.start_date}}</td>
+                                <td>{{treks.end_date}}</td>
+                                <td><a href = "/user_trek_details/{{this_user.id}}/{{treks.id}}" class="btn btn-outline-info">View Details</a>
+                                    <a href = "/user_trek_booking/{{this_user.id}}/{{treks.id}}" class="btn btn-outline-warning">Book Now</a></td>
+                            </tr>
+                            {% endfor %}
+                        {% else %}
+                        <tr>
+                            <td colspan="9" class="text-center">
+                                There is no data.
+                            </td>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+            <!--Table-->
+        </div>
+    </body>
+</html>

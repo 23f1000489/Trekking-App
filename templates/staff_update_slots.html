@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Admin's Dashboard</title>
+        <link rel="stylesheet" href="/static/dashboard.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    </head>
+    <body>
+        <!--Sidebar-->
+        <div class="sidebar">
+            <ul class="nav-links">
+                <li><a href="/staff_dashboard/{{this_staff.id}}"><i class="bx bx-grid-alt"></i> Dashboard</a></li>
+                <li><a href="/staff_trek/{{this_staff.id}}"><i class="bx bx-map"></i>My Treks</a></li>
+                <li><a href="/staff_participants/{{this_staff.id}}"><i class="bx bx-user-pin"></i>Participants</a></li>
+                <li><a href="/staff_profile/{{this_staff.id}}"><i class="bx bx-user"></i>Profile</a></li>
+                <li><a href="/logout" class="logout"><i class="bx bx-log-out"></i> Logout</a></li>
+            </ul>
+        </div>
+        <!--Sidebar-->
+        <!--Navbar-->
+        <div class="navbar" style = "position : fixed;">
+            <nav class="navbar bg-body-tertiary" >
+                <div class="container-fluid">
+                    <a class="navbar-brand">HikeNest</a>
+                </div>
+            </nav>
+        </div>
+        <!--Navbar-->
+        <div class = "canvas" >
+            <h2>Update Slots</h2>
+            <div id = "form-body" >
+                <form class="row g-3" action="/staff_update_slots/{{this_staff.id}}/{{assigned_trek.id}}" method="POST">
+                    <div class="mb-3">
+                        <label for="disabledTextInput" class="form-label">Trek Id</label>
+                        <input class="form-control" type="text" placeholder="{{assigned_trek.id}}" aria-label="Disabled input example" disabled>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="trek_name" class="form-label">Trek Name</label>
+                        <input type="text" class="form-control" id="trek_name"  name="trek_name" value = "{{assigned_trek.trek_name}}" disabled>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="location" class="form-label">Location</label>
+                        <input type="text" class="form-control" id="location" name="location" value = "{{assigned_trek.location}}" disabled>
+                    </div>
+                    <div class="col-md-6" >
+                        <label for="difficulty" class="form-label">Difficulty</label>
+                        <select id="difficulty" name="difficulty" class="form-select" value = "{{assigned_trek.difficulty}}" disabled>
+                        <option selected>{{assigned_trek.difficulty}}</option>
+                        <option value="Easy" name="Easy">Easy</option>
+                        <option value="Moderate" name="Moderate">Moderate</option>
+                        <option value="Hard" name="Hard">Hard</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="duration" class="form-label">Duration(days)</label>
+                        <input type="text" class="form-control" id="duration" name="duration" value = "{{assigned_trek.duration}}" disabled>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="available_slots" class="form-label">Available Slots</label>
+                        <input type="text" class="form-control" id="available_slots" name="available_slots" value = "{{assigned_trek.available_slots}}" required>
+                    </div>
+                    <div class="col-md-6" style = "width:100%">
+                        <label for="assigned_staff_id" class="form-label">Assigned Staff</label>
+                        <select id="assigned_staff_id" name="assigned_staff_id" class="form-control" disabled>
+                        <option selected>{{assigned_trek.assigned_staff_id}}</option>
+                        {% for staff in staffs %}
+                        <option value="{{staff.name}}" name="{{staff.name}}">{{staff.name}}</option>
+                        {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="start_date" class="form-label">Start Date</label>
+                        <input type="date" class="form-control" id="start_date" name="start_date" value = "{{assigned_trek.start_date}}" disabled>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="end_date" class="form-label">End Date</label>
+                        <input type="date" class="form-control" id="end_date" name="end_date" value = "{{assigned_trek.end_date}}" disabled>
+                    </div>
+
+                    <div class="col-md-6" style = "width:100%">
+                        <label for="status" class="form-label">Status</label>
+                        <select id="status" name="status" class="form-control" disabled>
+                        <option selected>{{assigned_trek.status}}</option>
+                        <option value="Open" name="Open">Open</option>
+                        <option value="Started" name="Started">Started</option>
+                        <option value="Completed" name="Completed">Completed</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="description">Description</label>
+                        <textarea class="form-control"  id="description" name="description" style="height: 100px" disabled>{{assigned_trek.description}}</textarea>
+                    </div>
+                    <div class="text-end" style ="display: flex; gap:20px; padding:50px;">
+                        <input type="submit" class="btn btn-success" value = "Save">
+                        <a href="/staff_trek/{{this_staff.id}}" class="btn btn-secondary">Go Back</a>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </body>
+</html>
