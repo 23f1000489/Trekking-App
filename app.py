@@ -21,4 +21,4 @@ if __name__ == "__main__":
             Admin = User(name='Admin',email='admin@user.com',phone = '1234567890',status = 'approved', password ='1234')
             db.session.add(Admin)
             db.session.commit()
-    app.run(debug =True)
+    app.run()
